@@ -1,12 +1,53 @@
-<?php require 'includes/header.php'; ?>
-<div class="dashboard"><div class="welcome"><h1>Panel principal</h1><p>Bienvenido, Administrador.</p><span>Rol: Administrador</span></div>
-<div class="grid">
- <div class="module"><div class="icon">👥</div><h3>Usuarios</h3><p>Gestión de cuentas y asignación de roles.</p><a class="btn" href="usuarios.php">Ver módulo</a></div>
- <div class="module"><div class="icon">👤</div><h3>Propietarios</h3><p>Registrar, editar y consultar propietarios.</p><a class="btn" href="propietarios.php">Ver módulo</a></div>
- <div class="module"><div class="icon">🐶</div><h3>Mascotas</h3><p>Gestionar las mascotas asociadas a cada propietario.</p><a class="btn" href="mascotas.php">Ver módulo</a></div>
- <div class="module"><div class="icon">📨</div><h3>Solicitudes</h3><p>Gestionar solicitudes de atención.</p><a class="btn" href="solicitudes.php">Ver módulo</a></div>
- <div class="module"><div class="icon">📅</div><h3>Citas</h3><p>Registrar y consultar citas.</p><a class="btn" href="citas.php">Ver módulo</a></div>
- <div class="module"><div class="icon">🩺</div><h3>Atenciones</h3><p>Registrar diagnóstico, tratamiento y observaciones.</p><a class="btn" href="atenciones.php">Ver módulo</a></div>
- <div class="module"><div class="icon">💳</div><h3>Pagos</h3><p>Consultar los pagos registrados.</p><a class="btn" href="pagos.php">Ver módulo</a></div>
-</div></div>
+<?php
+require_once 'includes/data.php';
+require_login();
+require 'includes/header.php';
+
+$rol = $_SESSION['rol'];
+
+$modulos = [
+  'Administrador' => [
+    ['icon'=>'👥','t'=>'Usuarios','d'=>'Cuentas y roles.','u'=>'usuarios.php'],
+    ['icon'=>'👤','t'=>'Propietarios','d'=>'Registrar y editar.','u'=>'propietarios.php'],
+    ['icon'=>'🐶','t'=>'Mascotas','d'=>'Mascotas por propietario.','u'=>'mascotas.php'],
+    ['icon'=>'📨','t'=>'Solicitudes','d'=>'Gestionar solicitudes.','u'=>'solicitudes.php'],
+    ['icon'=>'📅','t'=>'Citas','d'=>'Registrar y consultar.','u'=>'citas.php'],
+    ['icon'=>'🩺','t'=>'Atenciones','d'=>'Diagnóstico y tratamiento.','u'=>'atenciones.php'],
+    ['icon'=>'💳','t'=>'Pagos','d'=>'Registro de pagos.','u'=>'pagos.php'],
+  ],
+  'Recepcionista' => [
+    ['icon'=>'👤','t'=>'Propietarios','d'=>'Registrar y editar.','u'=>'propietarios.php'],
+    ['icon'=>'🐶','t'=>'Mascotas','d'=>'Mascotas por propietario.','u'=>'mascotas.php'],
+    ['icon'=>'📨','t'=>'Solicitudes','d'=>'Aprobar o rechazar.','u'=>'solicitudes.php'],
+    ['icon'=>'📅','t'=>'Citas','d'=>'Registrar y actualizar.','u'=>'citas.php'],
+    ['icon'=>'💳','t'=>'Pagos','d'=>'Registrar y consultar.','u'=>'pagos.php'],
+  ],
+  'Veterinario' => [
+    ['icon'=>'🐶','t'=>'Mascotas','d'=>'Consultar mascotas.','u'=>'mascotas.php'],
+    ['icon'=>'🩺','t'=>'Atenciones','d'=>'Registrar atención.','u'=>'atenciones.php'],
+  ],
+  'Propietario' => [
+    ['icon'=>'📨','t'=>'Mis solicitudes','d'=>'Solicitar atención.','u'=>'solicitudes.php'],
+    ['icon'=>'🩺','t'=>'Servicios','d'=>'Ver servicios.','u'=>'servicios.php'],
+  ],
+];
+$lista = $modulos[$rol] ?? [];
+?>
+<div class="dashboard">
+  <div class="welcome">
+    <h1>Panel principal</h1>
+    <p>Bienvenido, <?= htmlspecialchars($_SESSION['nombre']) ?>.</p>
+    <span>Rol: <?= htmlspecialchars($rol) ?></span>
+  </div>
+  <div class="grid">
+    <?php foreach ($lista as $m): ?>
+      <div class="module">
+        <div class="icon"><?= $m['icon'] ?></div>
+        <h3><?= $m['t'] ?></h3>
+        <p><?= $m['d'] ?></p>
+        <a class="btn" href="<?= $m['u'] ?>">Ver módulo</a>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</div>
 <?php require 'includes/footer.php'; ?>
