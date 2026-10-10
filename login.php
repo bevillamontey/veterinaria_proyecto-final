@@ -8,9 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $u = q_one($pdo, "SELECT u.*, r.nombre AS rol 
                       FROM usuarios u 
                       JOIN roles r ON u.id_rol = r.id_rol 
-                      WHERE u.correo=? AND u.estado=1", [$correo]);
+                      WHERE u.correo=? AND u.contrasena=? AND u.estado=1", 
+               [$correo, $pass]);
 
-    if ($u && password_verify($pass, $u['contrasena'])) {
+    if ($u) {
         $_SESSION['id_usuario'] = $u['id_usuario'];
         $_SESSION['nombre']     = $u['nombre'];
         $_SESSION['rol']        = $u['rol'];
@@ -26,9 +27,9 @@ require 'includes/header.php';
   <?php if ($error): ?><p class="error"><?= $error ?></p><?php endif; ?>
   <form class="form" method="post" action="login.php" style="box-shadow:none;padding:0;background:none">
     <label>Correo</label>
-    <input type="email" name="correo" value="admin@animallife.com" required>
+    <input type="email" name="correo" placeholder="ejemplo@animallife.com" required>
     <label>Contraseña</label>
-    <input type="password" name="contrasena" value="admin123" required>
+    <input type="password" name="contrasena" required>
     <button type="submit">Ingresar</button>
   </form>
   <div class="demo">
