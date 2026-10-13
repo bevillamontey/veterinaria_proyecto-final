@@ -78,13 +78,12 @@ CREATE TABLE pagos (
 -- Roles
 INSERT INTO roles (nombre) VALUES ('Administrador'),('Recepcionista'),('Veterinario'),('Propietario');
 
--- IMPORTANTE: reemplaza estos hashes por los que generes con el script generar_hash.php
--- Todos los usuarios de prueba usan la clave "123456" en este ejemplo
+
 INSERT INTO usuarios (nombre, correo, contrasena, id_rol) VALUES
-('Administrador', 'admin@animallife.com', '$2y$10$REEMPLAZA_ESTE_HASH_1', 1),
-('Ana García', 'recepcion@animallife.com', '$2y$10$REEMPLAZA_ESTE_HASH_2', 2),
-('Dr. Carlos Torres', 'veterinario@animallife.com', '$2y$10$REEMPLAZA_ESTE_HASH_3', 3),
-('María López', 'propietario@animallife.com', '$2y$10$REEMPLAZA_ESTE_HASH_4', 4);
+('Administrador', 'admin@animallife.com', 'admin123', 1),
+('Ana García', 'recepcion@animallife.com', 'recepcion123', 2),
+('Dr. Carlos Torres', 'veterinario@animallife.com', 'vet123', 3),
+('María López', 'propietario@animallife.com', 'prop123', 4);
 
 -- Datos de prueba
 INSERT INTO propietarios (nombre, dni, telefono, correo, direccion) VALUES

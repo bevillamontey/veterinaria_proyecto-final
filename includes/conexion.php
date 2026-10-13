@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$puerto = '3307'; // Mi puerto 3307 en caso el tuyo no  cambia esto a 3306
+$puerto = '3306'; // Mi puerto 3307 en caso el tuyo no  cambia esto a 3306
 $basedatos = 'animal_life';
 $usuario = 'root';
 $clave = '';
